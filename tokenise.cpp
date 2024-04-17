@@ -34,11 +34,25 @@ int main() {
 //	}
 	string line;
 	ifstream csvFile{"20200317.csv"};
+	vector<string> tokens;
 	if(csvFile.is_open()) {
 		cout << "File is open" << "\n";
-		cout << "Read line " << "\n";
-		getline(csvFile, line);
-		cout << line << endl;
+		cout << "Read line start" << "\n";
+		while(getline(csvFile, line)){
+			tokens = tokenise(line, ',');
+			if(tokens.size() != 5) {
+				cout << "Bad line" << endl;
+				continue;
+			}
+			double price = stod(tokens[3]);
+			double amount = stod(tokens[4]);
+			cout << "Price %f" << price << endl;
+			cout << "Amount %f" << amount << endl;
+//			for(string& t : tokens) {
+//				cout << t << endl;
+//			}
+		}
+		
 		csvFile.close();
 	} else {
 		cout << "File could not open" << endl;
